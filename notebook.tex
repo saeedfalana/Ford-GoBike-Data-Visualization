@@ -1,0 +1,1785 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{exploration\_template}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Ford GoBike System Data}\label{ford-gobike-system-data}
+
+\subsection{by Saeed Falan}\label{by-saeed-falan}
+
+\subsubsection{\texorpdfstring{\emph{Ramallah,
+Palestine}}{Ramallah, Palestine}}\label{ramallah-palestine}
+
+\subsection{Why am I doing this
+Analysis?}\label{why-am-i-doing-this-analysis}
+
+\begin{quote}
+This data set includes information about individual rides made in a
+bike-sharing system covering the greater San Francisco Bay area.
+\end{quote}
+
+\begin{quote}
+Note that this dataset will require some data wrangling in order to make
+it tidy for analysis. There are multiple cities , and multiple data
+files will need to be joined together
+\end{quote}
+
+\begin{quote}
+\emph{Ford goBike Data is available in this link
+\href{https://s3.amazonaws.com/fordgobike-data/index.html}{\textbf{Ford
+goBike Data Download}}}
+\end{quote}
+
+    \subsection{Questions}\label{questions}
+
+\paragraph{How fast the Ford goBike is
+growing?}\label{how-fast-the-ford-gobike-is-growing}
+
+\paragraph{How does rides trend vary per age, gender, weekday, and hour
+of a
+day?}\label{how-does-rides-trend-vary-per-age-gender-weekday-and-hour-of-a-day}
+
+\paragraph{How does subscribers and customers behave
+differently?}\label{how-does-subscribers-and-customers-behave-differently}
+
+\paragraph{Which docks are used more
+frequently?}\label{which-docks-are-used-more-frequently}
+
+\paragraph{When and where 'Bike share for all' members use Ford
+goBike?}\label{when-and-where-bike-share-for-all-members-use-ford-gobike}
+
+\paragraph{How is the trend of electric bike rides and which age group
+favors E-Bike
+more?}\label{how-is-the-trend-of-electric-bike-rides-and-which-age-group-favors-e-bike-more}
+
+\paragraph{Which member age group relatively use electric bikes more
+than other
+group?}\label{which-member-age-group-relatively-use-electric-bikes-more-than-other-group}
+
+    \subsection{Table of Content}\label{table-of-content}
+
+     Section \ref{setup-environment-and-read-data}
+
+ Section \ref{filter-data-to-include-reasonable-member-age-range}
+
+ Section \ref{filter-data-only-to-include-san-francisco-rides}
+
+ Section \ref{how-fast-the-ford-gobike-is-growing}
+
+ Section \ref{how-does-rides-trend-vary-per-age-gender-weekday-and-hour-of-a-day}
+
+ Section \ref{how-does-subscribers-and-customers-behave-differently}
+
+ Section \ref{which-docks-are-used-more-frequently}
+
+ Section \ref{when-and-where-bike-share-for-all-members-use-ford-gobike}
+
+ Section \ref{how-is-the-trend-of-electric-bike-rides-and-which-age-group-favors-e-bike-more}
+
+    \subsection{Setup Environment and Read
+data}\label{setup-environment-and-read-data}
+
+    \subsubsection{Import Modules}\label{import-modules}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{c+c1}{\PYZsh{} import all packages and set plots to be embedded inline}
+          \PY{k+kn}{from} \PY{n+nn}{requests} \PY{k}{import} \PY{n}{get}
+          \PY{k+kn}{from} \PY{n+nn}{os} \PY{k}{import} \PY{n}{path}\PY{p}{,} \PY{n}{getcwd}\PY{p}{,} \PY{n}{makedirs}\PY{p}{,} \PY{n}{listdir} 
+          \PY{k+kn}{from} \PY{n+nn}{io} \PY{k}{import} \PY{n}{BytesIO}
+          \PY{k+kn}{from} \PY{n+nn}{zipfile} \PY{k}{import} \PY{n}{ZipFile}
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{tick}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{datetime}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{k+kn}{import} \PY{n+nn}{calendar}
+          \PY{k+kn}{import} \PY{n+nn}{cufflinks} \PY{k}{as} \PY{n+nn}{cf}
+          
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+          
+          
+          \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{output\PYZus{}file}\PY{p}{,} \PY{n}{show}\PY{p}{,} \PY{n}{output\PYZus{}notebook}
+          \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{ColumnDataSource}\PY{p}{,} \PY{n}{GMapOptions}
+          \PY{k+kn}{from} \PY{n+nn}{bokeh}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{gmap}\PY{p}{,} \PY{n}{figure}
+          
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} rpy2.ipython
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The rpy2.ipython extension is already loaded. To reload it, use:
+  \%reload\_ext rpy2.ipython
+
+    \end{Verbatim}
+
+    \subsubsection{Read Data}\label{read-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{c+c1}{\PYZsh{}The dataset is a huge file so I compressed the file. So, before running my analysis, you should decompress the file, }
+          \PY{c+c1}{\PYZsh{} if you open .ZIP file please i gonre this step or change path name to open it corectlty with out error }
+          
+          \PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trip\PYZus{}data\PYZus{}files}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{makedirs}\PY{p}{(}\PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://s3.amazonaws.com/fordgobike\PYZhy{}data/2017\PYZhy{}fordgobike\PYZhy{}tripdata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{/2017\PYZhy{}forgobike\PYZhy{}tripdata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{month} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+            \PY{n}{month\PYZus{}string} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{month}\PY{p}{)}
+            \PY{n}{month\PYZus{}leading\PYZus{}zero} \PY{o}{=} \PY{n}{month\PYZus{}string}\PY{o}{.}\PY{n}{zfill}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+            
+            \PY{n}{bike\PYZus{}data\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://s3.amazonaws.com/fordgobike\PYZhy{}data/2018}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{month\PYZus{}leading\PYZus{}zero} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}fordgobike\PYZhy{}tripdata.csv.zip}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{response} \PY{o}{=} \PY{n}{get}\PY{p}{(}\PY{n}{bike\PYZus{}data\PYZus{}url}\PY{p}{)}
+                
+             \PY{c+c1}{\PYZsh{}code below opens zip file; BytesIO returns a readable and writeable view of the contents;}
+            \PY{n}{unzipped\PYZus{}file} \PY{o}{=} \PY{n}{ZipFile}\PY{p}{(}\PY{n}{BytesIO}\PY{p}{(}\PY{n}{response}\PY{o}{.}\PY{n}{content}\PY{p}{)}\PY{p}{)}
+                
+             \PY{c+c1}{\PYZsh{}puts extracted zip file into folder trip\PYZus{}data\PYZus{}files}
+            \PY{n}{unzipped\PYZus{}file}\PY{o}{.}\PY{n}{extractall}\PY{p}{(}\PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Combine All Locally Saved CSVs into One
+DataFrame}\label{combine-all-locally-saved-csvs-into-one-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{list\PYZus{}csvs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{file\PYZus{}name} \PY{o+ow}{in} \PY{n}{listdir}\PY{p}{(}\PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs}\PY{p}{)}\PY{p}{:}
+            \PY{n}{list\PYZus{}csvs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{folder\PYZus{}name\PYZus{}of\PYZus{}csvs}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{list\PYZus{}csvs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Examine DataFrame}\label{examine-dataframe}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}223}]:} 1538086
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}224}]:}    Unnamed: 0  Unnamed: 0.1  bike\_id bike\_share\_for\_all\_trip  duration\_sec  \textbackslash{}
+          0           0           0.0       96                     NaN         80110   
+          1           1           1.0       88                     NaN         78800   
+          2           2           2.0     1094                     NaN         45768   
+          
+             end\_station\_id  end\_station\_latitude  end\_station\_longitude  \textbackslash{}
+          0            43.0             37.778768            -122.415929   
+          1            96.0             37.766210            -122.426614   
+          2           245.0             37.870348            -122.267764   
+          
+                                              end\_station\_name  \textbackslash{}
+          0  San Francisco Public Library (Grove St at Hyde{\ldots}   
+          1                              Dolores St at 15th St   
+          2                             Downtown Berkeley BART   
+          
+                             end\_time  member\_birth\_year member\_gender  \textbackslash{}
+          0  2018-01-01 15:12:50.2450             1987.0          Male   
+          1  2018-01-01 13:49:55.6170             1965.0        Female   
+          2  2018-01-01 11:28:36.8830                NaN           NaN   
+          
+             start\_station\_id  start\_station\_latitude  start\_station\_longitude  \textbackslash{}
+          0              74.0               37.776435              -122.426244   
+          1             284.0               37.784872              -122.400876   
+          2             245.0               37.870348              -122.267764   
+          
+                                            start\_station\_name  \textbackslash{}
+          0                              Laguna St at Hayes St   
+          1  Yerba Buena Center for the Arts (Howard St at {\ldots}   
+          2                             Downtown Berkeley BART   
+          
+                           start\_time user\_type  
+          0  2017-12-31 16:57:39.6540  Customer  
+          1  2017-12-31 15:56:34.8420  Customer  
+          2  2017-12-31 22:45:48.4110  Customer  
+\end{Verbatim}
+            
+    \subsubsection{Set visualization style}\label{set-visualization-style}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}context}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{talk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Filter data to include reasonable member age
+range}\label{filter-data-to-include-reasonable-member-age-range}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2018}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}birth\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{Check outliers}\label{check-outliers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{percentiles} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{75}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{9}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}227}]:} count    1.400419e+06
+          mean     3.619542e+01
+          std      1.056463e+01
+          min      1.800000e+01
+          10\%      2.500000e+01
+          20\%      2.800000e+01
+          30\%      3.000000e+01
+          40\%      3.200000e+01
+          50\%      3.400000e+01
+          60\%      3.600000e+01
+          70\%      4.000000e+01
+          75\%      4.200000e+01
+          80\%      4.400000e+01
+          90\%      5.100000e+01
+          95\%      5.600000e+01
+          max      1.370000e+02
+          Name: member\_age, dtype: float64
+\end{Verbatim}
+            
+    There are outliers. Age from 18 to 56 takes 95\% of the users. So, it's
+logical to remove users more than 60 years old. There were users more
+than 100 years old. I searched at Ford sign in webpage and realized they
+allow users to put some unusual birth year, such as 1918.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}229}]:} 35.37610017731796
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}birth\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    The Ford bike users' median user age is around 35\textasciitilde{}36.
+
+    \subsection{Filter data only to include San Francisco
+Rides}\label{filter-data-only-to-include-san-francisco-rides}
+
+    Ford goBike spreaded the service to SF, Oakland and San Jose. However,
+it's hard to imagine traffic from SF to Oakland, not to mention to San
+Jose. So, based on this mutual exclusivity, I decided to focus on San
+Fancisco area.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{max\PYZus{}longitude\PYZus{}sf} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{122.3597}
+          \PY{n}{min\PYZus{}longitude\PYZus{}sf} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{122.5147}
+          \PY{n}{max\PYZus{}latitude\PYZus{}sf} \PY{o}{=} \PY{l+m+mf}{37.8121}
+          \PY{n}{min\PYZus{}latitude\PYZus{}sf} \PY{o}{=} \PY{l+m+mf}{37.7092}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{end\PYZus{}station\PYZus{}latitude\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{min\PYZus{}latitude\PYZus{}sf}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{max\PYZus{}latitude\PYZus{}sf}\PY{p}{)}
+          \PY{n}{start\PYZus{}station\PYZus{}latitude\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{min\PYZus{}latitude\PYZus{}sf}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{max\PYZus{}latitude\PYZus{}sf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n}{end\PYZus{}station\PYZus{}longitude\PYZus{}mask} \PY{o}{=}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{min\PYZus{}longitude\PYZus{}sf}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{max\PYZus{}longitude\PYZus{}sf}\PY{p}{)}
+          \PY{n}{start\PYZus{}station\PYZus{}longitude\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{min\PYZus{}longitude\PYZus{}sf}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{max\PYZus{}longitude\PYZus{}sf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{end\PYZus{}station\PYZus{}latitude\PYZus{}mask} \PY{o}{\PYZam{}} \PY{n}{start\PYZus{}station\PYZus{}latitude\PYZus{}mask} \PY{o}{\PYZam{}} \PY{n}{end\PYZus{}station\PYZus{}longitude\PYZus{}mask} \PY{o}{\PYZam{}} \PY{n}{start\PYZus{}station\PYZus{}longitude\PYZus{}mask}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}235}]:} 1024751
+\end{Verbatim}
+            
+    Now the data size became around 1million.
+
+    \subsubsection{\texorpdfstring{Generate new fields for date from
+\texttt{start\_time} and
+\texttt{end\_time}}{Generate new fields for date from start\_time and end\_time}}\label{generate-new-fields-for-date-from-start_time-and-end_time}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}year\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour\PYZus{}minute}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}hour\PYZus{}minute}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{weekday\PYZus{}name}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{weekday\PYZus{}name}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{weekday}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{calendar}\PY{o}{.}\PY{n}{day\PYZus{}abbr}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{weekday}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{calendar}\PY{o}{.}\PY{n}{day\PYZus{}abbr}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Generate a new field for member age group
+from
+\texttt{member\_age\_bins}}{Generate a new field for member age group from member\_age\_bins}}\label{generate-a-new-field-for-member-age-group-from-member_age_bins}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 \PYZhy{} 20}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{l+m+mi}{10}\PY{o}{\PYZlt{}}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{20}
+                                                            \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 \PYZhy{} 30}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{l+m+mi}{20}\PY{o}{\PYZlt{}}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{30}
+                                                            \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{30 \PYZhy{} 40}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{l+m+mi}{30}\PY{o}{\PYZlt{}}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{40}
+                                                            \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{40 \PYZhy{} 50}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{l+m+mi}{40}\PY{o}{\PYZlt{}}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{50}
+                                                            \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50 \PYZhy{} 60}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{l+m+mi}{50}\PY{o}{\PYZlt{}}\PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{60}
+                                                            \PY{k}{else} \PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Generate minutes for trip duration from
+\texttt{duration\_sec}}{Generate minutes for trip duration from duration\_sec}}\label{generate-minutes-for-trip-duration-from-duration_sec}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}sec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{60}
+\end{Verbatim}
+
+
+    \subsubsection{Generate new fields for
+distance}\label{generate-new-fields-for-distance}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{k}{def} \PY{n+nf}{distance}\PY{p}{(}\PY{n}{origin}\PY{p}{,} \PY{n}{destination}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Calculate the Haversine distance.}
+          
+          \PY{l+s+sd}{    Parameters}
+          \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{l+s+sd}{    origin : tuple of float}
+          \PY{l+s+sd}{        (lat, long)}
+          \PY{l+s+sd}{    destination : tuple of float}
+          \PY{l+s+sd}{        (lat, long)}
+          
+          \PY{l+s+sd}{    Returns}
+          \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{l+s+sd}{    distance\PYZus{}in\PYZus{}km : float}
+          
+          \PY{l+s+sd}{    Examples}
+          \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} origin = (48.1372, 11.5756)  \PYZsh{} Munich}
+          \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} destination = (52.5186, 13.4083)  \PYZsh{} Berlin}
+          \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} round(distance(origin, destination), 1)}
+          \PY{l+s+sd}{    504.2}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{lat1}\PY{p}{,} \PY{n}{lon1} \PY{o}{=} \PY{n}{origin}
+              \PY{n}{lat2}\PY{p}{,} \PY{n}{lon2} \PY{o}{=} \PY{n}{destination}
+              \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{6371}  \PY{c+c1}{\PYZsh{} km}
+          
+              \PY{n}{dlat} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{radians}\PY{p}{(}\PY{n}{lat2} \PY{o}{\PYZhy{}} \PY{n}{lat1}\PY{p}{)}
+              \PY{n}{dlon} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{radians}\PY{p}{(}\PY{n}{lon2} \PY{o}{\PYZhy{}} \PY{n}{lon1}\PY{p}{)}
+              \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{dlat} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{dlat} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+}
+                   \PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{radians}\PY{p}{(}\PY{n}{lat1}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{radians}\PY{p}{(}\PY{n}{lat2}\PY{p}{)}\PY{p}{)} \PY{o}{*}
+                   \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{dlon} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{dlon} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+              \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{atan2}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}\PY{p}{)}
+              \PY{n}{distance} \PY{o}{=} \PY{n}{radius} \PY{o}{*} \PY{n}{c}
+          
+              \PY{k}{return} \PY{n}{distance}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}km\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{distance}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}km\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{0.621371}
+\end{Verbatim}
+
+
+    \subsection{How fast the Ford goBike is
+growing?}\label{how-fast-the-ford-gobike-is-growing}
+
+\subsubsection{Average count of rides per bike per
+day}\label{average-count-of-rides-per-bike-per-day}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{count\PYZus{}of\PYZus{}rides} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{count\PYZus{}of\PYZus{}unique\PYZus{}rides} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unique\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df} \PY{o}{=} \PY{n}{count\PYZus{}of\PYZus{}rides}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{count\PYZus{}of\PYZus{}unique\PYZus{}rides}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unique\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unique\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{n}{July2017\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day} \PY{o}{=} \PY{p}{(}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{17\PYZhy{}07}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{31}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{n}{July2018\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day} \PY{o}{=} \PY{p}{(}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{18\PYZhy{}07}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{31}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{July2017\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day}\PY{p}{,} \PY{n}{July2018\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.8647844601294989 2.8192083090913007
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{n}{July2018\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day}\PY{o}{/}\PY{n}{July2017\PYZus{}avg\PYZus{}num\PYZus{}bike\PYZus{}used\PYZus{}per\PYZus{}day}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}258}]:} 3.2600126841654076
+\end{Verbatim}
+            
+    Compared to 2017 July, where average count of rides per bike per day was
+last than once(0.8648), it increased 3.26 times in 2018 July, where
+average count of rides per bike per day reaches almost 3 times(2.8192)
+
+    \subsubsection{Count of daily bike rides from June 2017 to July
+2018}\label{count-of-daily-bike-rides-from-june-2017-to-july-2018}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{k}{def} \PY{n+nf}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{(}\PY{n}{tick\PYZus{}val}\PY{p}{,} \PY{n}{pos}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{tick\PYZus{}val} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{:}
+                  \PY{n}{val} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{tick\PYZus{}val}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:d\PYZcb{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{val}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{tick\PYZus{}val} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{1000000}\PY{p}{:} 
+                  \PY{n}{val} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{tick\PYZus{}val}\PY{o}{/}\PY{l+m+mi}{1000000}\PY{p}{)}
+                  \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:d\PYZcb{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{val}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{tick\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The daily trend of bike rides}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{tick}\PY{o}{.}\PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image01.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Compared to 2017 July 1st, where daily rides were less than 1000, it
+increased to more than 5000 after a year (2018 July lst) There is huge
+decrease around January 2018 because it's too cold. Also, There is
+weekly ups and downs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}261}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blues}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The monthly trend of bike rides}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{tick}\PY{o}{.}\PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image02.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There is seasonality around winter because it is cold. However, compared
+to July 2017, bike rides of July 2018 increased more than 4.3 times
+
+    \subsubsection{Count of People Who took bike rides by Age Group Per
+Month}\label{count-of-people-who-took-bike-rides-by-age-group-per-month}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{my\PYZus{}palette} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 \PYZhy{} 30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{30 \PYZhy{} 40}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{40 \PYZhy{} 50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgrey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{my\PYZus{}palette}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 \PYZhy{} 30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{30 \PYZhy{} 40}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{40 \PYZhy{} 50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The monthly trend of bike rides for 20 to 40 years olds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{leg} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Member age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{tick}\PY{o}{.}\PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image03.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    20's users are rapidly growing compared to other user groups. When the
+service first started 30's user were dominant, however in a year 20's
+users became on par of 30's users or even more recently.
+
+    \subsection{How does rides trend vary per age, gender, weekday, and hour
+of a
+day?}\label{how-does-rides-trend-vary-per-age-gender-weekday-and-hour-of-a-day}
+
+    \subsubsection{Total rides from June 2017 to July
+2018}\label{total-rides-from-june-2017-to-july-2018}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}263}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}263}]:} 2158726770
+\end{Verbatim}
+            
+    There were 2.15 billion rides
+
+    \subsubsection{Bike rides per member age
+group}\label{bike-rides-per-member-age-group}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}264}]:} \PY{n}{trip\PYZus{}by\PYZus{}age\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}265}]:} \PY{n}{trip\PYZus{}by\PYZus{}age\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{trip\PYZus{}by\PYZus{}age\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{trip\PYZus{}by\PYZus{}age\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{n}{new\PYZus{}color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{trip\PYZus{}by\PYZus{}age\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of all bike rides per age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pecentage(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image04.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    20 to 40 years old people took the more than 70\% of bike rides. Among
+those, 30 to 40 years old people's rides account for 40\% of all bike
+rides.
+
+    \subsubsection{Bike rides per gender}\label{bike-rides-per-gender}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{n}{trip\PYZus{}by\PYZus{}gender\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{n}{trip\PYZus{}by\PYZus{}gender\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{trip\PYZus{}by\PYZus{}gender\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{trip\PYZus{}by\PYZus{}gender\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}269}]:} \PY{n}{new\PYZus{}color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{trip\PYZus{}by\PYZus{}gender\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of all bike rides per gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pecentage(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image05.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Male took 76\% of all bike rides, and female took 22\% of them.
+
+    \subsubsection{Bike rides per weekday}\label{bike-rides-per-weekday}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{n}{trip\PYZus{}by\PYZus{}weekday\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{n}{trip\PYZus{}by\PYZus{}weekday\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{trip\PYZus{}by\PYZus{}weekday\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{trip\PYZus{}by\PYZus{}weekday\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{n}{weekday\PYZus{}index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{n}{new\PYZus{}color} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{trip\PYZus{}by\PYZus{}weekday\PYZus{}df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{weekday\PYZus{}index}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of all bike rides per weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentage(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image06.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There is huge difference in percentage of all rides during weekdays and
+weekend. So, majority of people use this service on weekdays.
+
+    \subsubsection{Bike rides per hours of the
+day}\label{bike-rides-per-hours-of-the-day}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{n}{trip\PYZus{}by\PYZus{}hour\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{n}{trip\PYZus{}by\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{trip\PYZus{}by\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{trip\PYZus{}by\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{pointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{trip\PYZus{}by\PYZus{}hour\PYZus{}df}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of all bike rides by hour of the day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour [day]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentage(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image07.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    8am and 5pm are the peak hours for this service. In other words,
+majority of people use this service during commute time. Also, people
+use it when in lunch time as well.
+
+    \subsection{How does subscribers and customers behave
+differently?}\label{how-does-subscribers-and-customers-behave-differently}
+
+    \subsubsection{Count of bike rides of subscribers and
+customers}\label{count-of-bike-rides-of-subscribers-and-customers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}277}]:} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}per\PYZus{}user\PYZus{}type} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}278}]:} \PY{n}{count\PYZus{}of\PYZus{}rides\PYZus{}per\PYZus{}user\PYZus{}type}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}278}]:} 0    11.538413
+          1    88.461587
+          Name: count, dtype: float64
+\end{Verbatim}
+            
+    88.5\% of bike rides are from subscribers. On the contrary, 11.5\% is
+from customers'
+
+    \subsubsection{The trend of bike rides per user
+type}\label{the-trend-of-bike-rides-per-user-type}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{n}{user\PYZus{}type\PYZus{}count\PYZus{}per\PYZus{}year\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{my\PYZus{}palette} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Subscriber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Customer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{my\PYZus{}palette}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{user\PYZus{}type\PYZus{}count\PYZus{}per\PYZus{}year\PYZus{}df}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The monthly trend of bike rides per user type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{leg} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{User Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{tick}\PY{o}{.}\PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image08.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Although normal customers' rides seems increasing, dominant rides were
+from subscribers. Subscibers rides reached 5.5 times more than
+customers' on July 2018
+
+    \subsubsection{Average trip duration per user
+type}\label{average-trip-duration-per-user-type}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{new\PYZus{}color}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average trip duration per user type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minutes [trip duration]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{datalabel} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minutes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{datalabel}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image09.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    user\_type    Minutes
+0    Customer  28.621880
+1  Subscriber  11.385559
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Suprisingly, subscribers' average trip duration is 11 minutes. On the
+contrary, customers' average trip duration is 28 minutes. So, 80\% of
+the rides are from subscribers and it can be implied that they use this
+service to commute
+
+    \subsubsection{Average trip distance per user
+type}\label{average-trip-distance-per-user-type}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{ax} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average trip distance per user group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{miles [distance]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{datalabel} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miles Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{datalabel}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image10.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    user\_type  Miles Distance
+0    Customer        1.121777
+1  Subscriber        1.019372
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Interestingly, both subscribers and customers trip distance were about
+the same, which is slightly above one mile. So, I assumeed a lot of
+customers, who pay 2 dollars for single 30 minuetes ride, are more
+likely use the service for leisure. Even though they use this for
+leisure, they don't tend to go very far
+
+    \subsubsection{The trend of subscribers' bike rides per age
+group}\label{the-trend-of-subscribers-bike-rides-per-age-group}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}283}]:} \PY{n}{subscriber\PYZus{}age\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Subscriber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}284}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{subscriber\PYZus{}age\PYZus{}df}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The monthly trend of bike rides per subscribers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ member age group}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{leg} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Member age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{tick}\PY{o}{.}\PY{n}{FuncFormatter}\PY{p}{(}\PY{n}{transform\PYZus{}axis\PYZus{}fmt}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image11.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Main purpose bike rides for subscribers and customers
+(20\textasciitilde{}40 years age
+group)}\label{main-purpose-bike-rides-for-subscribers-and-customers-2040-years-age-group}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}285}]:} \PY{n}{subscriber\PYZus{}hour\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{40}\PY{p}{)} 
+                                        \PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Subscriber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                                       \PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}286}]:} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}287}]:} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}288}]:} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}289}]:} \PY{n}{subscriber\PYZus{}hour\PYZus{}df\PYZus{}pivoted} \PY{o}{=} \PY{n}{subscriber\PYZus{}hour\PYZus{}df}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}290}]:} \PY{n}{customer\PYZus{}hour\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{40}\PY{p}{)} 
+                                        \PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Customer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                                       \PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}291}]:} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}292}]:} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)} \PY{c+c1}{\PYZsh{}male}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}293}]:} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}294}]:} \PY{n}{customer\PYZus{}hour\PYZus{}df\PYZus{}pivoted} \PY{o}{=} \PY{n}{customer\PYZus{}hour\PYZus{}df}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}weekday\PYZus{}abbr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Most frequently used timing per user type for 20\PYZti{}40 age people}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{subscriber\PYZus{}hour\PYZus{}df\PYZus{}pivoted}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank of subscribers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ most frequently used timing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour [day]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{customer\PYZus{}hour\PYZus{}df\PYZus{}pivoted}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{cbar\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rank of frequently used timing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rank of customers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ most frequently used timing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weekday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image12.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_128_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Subscribers' most frequently used timing is around 7\textasciitilde{}9am
+and 4\textasciitilde{}6pm, which is a commute time. In the contrary,
+Customers' most frequently used timing are weekend
+12pm\textasciitilde{}4pm and weekday 5pm\textasciitilde{}6pm. Customers
+tend to use this service during weekend for leisure and after work.
+
+    \subsection{Which docks are used more
+frequently?}\label{which-docks-are-used-more-frequently}
+
+    \subsubsection{Top 200 start station and top 20
+station}\label{top-200-start-station-and-top-20-station}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}296}]:} \PY{n}{start\PYZus{}station} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}297}]:} \PY{n}{start\PYZus{}station\PYZus{}from\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{start\PYZus{}station}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}298}]:} \PY{n}{start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df} \PY{o}{=} \PY{n}{start\PYZus{}station\PYZus{}from\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}sec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}299}]:} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}staion} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{start\PYZus{}station\PYZus{}name}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}from\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{start\PYZus{}station\PYZus{}name}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}staion}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}301}]:} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}from\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}sec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}302}]:} \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{map\PYZus{}options} \PY{o}{=} \PY{n}{GMapOptions}\PY{p}{(}\PY{n}{lat}\PY{o}{=}\PY{l+m+mf}{37.77}\PY{p}{,} \PY{n}{lng}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{122.41}\PY{p}{,} \PY{n}{map\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roadmap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zoom}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} For GMaps to function, Google requires you obtain and enable an API key:}
+          \PY{c+c1}{\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}     https://developers.google.com/maps/documentation/javascript/get\PYZhy{}api\PYZhy{}key}
+          \PY{c+c1}{\PYZsh{}}
+          \PY{c+c1}{\PYZsh{} Replace the value below with your personal API key:5}
+          \PY{n}{p} \PY{o}{=} \PY{n}{gmap}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AIzaSyAP5z93hiJppmyZoEoDj47ORBgk5yivRSM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{map\PYZus{}options}\PY{p}{,} \PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{700}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{700}\PY{p}{)}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 20 most popular docks among all docks}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{text\PYZus{}font\PYZus{}size} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20px}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{align} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{n}{source1} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}
+              \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{lat} \PY{o}{=} \PY{n}{start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{lon} \PY{o}{=} \PY{n}{start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{p}{)}
+          
+          \PY{n}{source2} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}
+              \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{lat} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{lon} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{p}{)}
+          
+          
+          \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ford bike docks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source1}\PY{p}{)}
+          \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top 20 most popular docks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source2}\PY{p}{)}
+          
+          \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{label\PYZus{}text\PYZus{}font\PYZus{}size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{12pt}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top\PYZus{}left}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    This is to show where the ford goBike docks are distributed and top 20
+docks are aorund market street and SOMA, where lots of companies are
+located.
+
+    \subsection{When and where 'Bike share for all' members use Ford
+goBike?}\label{when-and-where-bike-share-for-all-members-use-ford-gobike}
+
+    'Bike share for all' is a program which is offered by Ford goBike to
+sponsor low income people who meet certain criteria. Bike Share for All
+is available to Bay Area residents ages 18 and older who qualify for
+Calfresh, SFMTA (Low Income) Lifeline Passes or PG\&E CARE utility
+discount. \href{https://www.fordgobike.com/pricing/bikeshareforall}{For
+more information}
+
+    \subsubsection{Count of 'Bike share for all' rides per
+hour}\label{count-of-bike-share-for-all-rides-per-hour}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}303}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}share\PYZus{}for\PYZus{}all\PYZus{}trip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count of }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Bike share for all}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ rides per hour of a day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour [day]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image13.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_143_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It seems that 5pm is peak hour for 'Bike share for all' rides. However,
+they use less when going to work than going home.
+
+    \subsubsection{Trend of 'bike share for all' members' bike rides for
+different age
+group}\label{trend-of-bike-share-for-all-members-bike-rides-for-different-age-group}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}304}]:} \PY{n}{bike\PYZus{}share\PYZus{}for\PYZus{}all\PYZus{}trip\PYZus{}age\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}share\PYZus{}for\PYZus{}all\PYZus{}trip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}305}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}year\PYZus{}month\PYZus{}renamed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{bike\PYZus{}share\PYZus{}for\PYZus{}all\PYZus{}trip\PYZus{}age\PYZus{}df}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The monthly trend of }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{bike share for all}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ members}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ bike rides per age group}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{leg} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Member age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image14.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_147_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It seems the 'Bike share for all' program launched around January 2018.
+There is an increasing trend after that. 10 to 20 years old group might
+not be qualified for the criteria. There is sharp increase of 40 to 50
+years old users' rides after March 2018. However, 20 to 40 user groups'
+usage seems to be stagnated recently.
+
+    \subsubsection{Popular docks for 'Bike share for all'
+members}\label{popular-docks-for-bike-share-for-all-members}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}306}]:} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}staion} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}share\PYZus{}for\PYZus{}all\PYZus{}trip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{start\PYZus{}station\PYZus{}name}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}307}]:} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}station\PYZus{}from\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{start\PYZus{}station\PYZus{}name}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}staion}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}308}]:} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}station\PYZus{}from\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration\PYZus{}sec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance\PYZus{}miles\PYZus{}estimates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}309}]:} \PY{n}{output\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{map\PYZus{}options} \PY{o}{=} \PY{n}{GMapOptions}\PY{p}{(}\PY{n}{lat}\PY{o}{=}\PY{l+m+mf}{37.773}\PY{p}{,} \PY{n}{lng}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{122.402}\PY{p}{,} \PY{n}{map\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roadmap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{zoom}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} For GMaps to function, Google requires you obtain and enable an API key:}
+          \PY{c+c1}{\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}     https://developers.google.com/maps/documentation/javascript/get\PYZhy{}api\PYZhy{}key}
+          \PY{c+c1}{\PYZsh{}}
+          \PY{c+c1}{\PYZsh{} Replace the value below with your personal API key:5}
+          \PY{n}{p} \PY{o}{=} \PY{n}{gmap}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AIzaSyAP5z93hiJppmyZoEoDj47ORBgk5yivRSM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{map\PYZus{}options}\PY{p}{,} \PY{n}{plot\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{700}\PY{p}{,} \PY{n}{plot\PYZus{}height}\PY{o}{=}\PY{l+m+mi}{700}\PY{p}{)}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Popular docks for }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{bike share for all}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ members, compared to that of all members}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{text\PYZus{}font\PYZus{}size} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{18px}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{align} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{n}{source1} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}
+              \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{lat} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{lon} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}bike\PYZus{}share\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{p}{)}
+          
+          \PY{n}{source2} \PY{o}{=} \PY{n}{ColumnDataSource}\PY{p}{(}
+              \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{lat} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{lon} \PY{o}{=} \PY{n}{top\PYZus{}20\PYZus{}start\PYZus{}station\PYZus{}lon\PYZus{}lat\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{p}{)}
+          
+          
+          \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 20 popular docks for }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{bike share for all}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ members}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source1}\PY{p}{)}
+          \PY{n}{p}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fill\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 20 popular docks amongst all members}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{source}\PY{o}{=}\PY{n}{source2}\PY{p}{)}
+          
+          \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{label\PYZus{}text\PYZus{}font\PYZus{}size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10pt}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{p}\PY{o}{.}\PY{n}{legend}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bottom\PYZus{}right}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{show}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    Compared to all members' popular docks, it seems that most of the
+popular docks for 'Bike share for all' members are spreaded around Bart
+station or Caltrain station. Also, there are further Bart stations such
+as 24th street station. as well compared to popular docks for all
+members. In addition, there seems to be very famous buliding among the
+popular docks for 'Bike share for all' members, such as SF moma, Twitter
+HQ, Asian Art Museum, and City hall.
+
+    \subsection{How is the trend of electric bike rides and which age group
+favors E-Bike
+more?}\label{how-is-the-trend-of-electric-bike-rides-and-which-age-group-favors-e-bike-more}
+
+    Ford goBike annouced the launch of electric bikes as April 24th, 2018.
+\href{https://www.fordgobike.com/blog/ford-gobike-plus-launches-in-san-francisco}{To
+see the news} It can be implied that the new electric bikes were added
+in a week after April 24th.
+
+    \subsubsection{Predict electric bike}\label{predict-electric-bike}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}310}]:} \PY{n}{non\PYZus{}electric\PYZus{}bike\PYZus{}id} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}311}]:} \PY{n}{electric\PYZus{}bike\PYZus{}id} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{bike\PYZus{}id} \PY{o+ow}{in} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:} 
+              \PY{k}{if} \PY{n}{bike\PYZus{}id} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{non\PYZus{}electric\PYZus{}bike\PYZus{}id} \PY{o+ow}{and} \PY{n}{bike\PYZus{}id} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{electric\PYZus{}bike\PYZus{}id}\PY{p}{:}
+                  \PY{n}{electric\PYZus{}bike\PYZus{}id}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{bike\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}312}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{electric\PYZus{}bike\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}312}]:} 250
+\end{Verbatim}
+            
+    As it announced, the prediction is around the correct number, 250.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}313}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{electric\PYZus{}bike\PYZus{}id}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Number of electric bike rides vs regular bike
+rides}\label{number-of-electric-bike-rides-vs-regular-bike-rides}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}314}]:} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}314}]:} False    92.795323
+          True      7.204677
+          Name: electric\_bike\_id, dtype: float64
+\end{Verbatim}
+            
+    92.8\% of rides are non-electric bike rides. Electric bike rides
+accounts for 7.2\% of the total rides.
+
+    \subsubsection{Verification of electric bikes with box
+plot}\label{verification-of-electric-bikes-with-box-plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}315}]:} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}316}]:} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df} \PY{o}{=} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}317}]:} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{electric\PYZus{}bike\PYZus{}id} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{non\PYZhy{}electric}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}319}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{my\PYZus{}palette} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{electric}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{non\PYZhy{}electric}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{my\PYZus{}palette}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{electric\PYZus{}bike\PYZus{}verification\PYZus{}df}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg count of electric bike rides and non\PYZhy{}electric bike rides from April 24th to May 3rd 2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month\PYZhy{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg count [rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{leg} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{leg}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bike Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image15.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_171_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It seems that there is huge difference in terms of average count of
+electric bike rides, which is less than 5 times, and normal bike rides,
+which is more than 5 times. After the news of new launch of electric
+bike service, maybe there were high demands on riding electric bikes at
+the time.
+
+    \subsubsection{Make a dataframe for electric bike
+rides}\label{make-a-dataframe-for-electric-bike-rides}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}320}]:} \PY{n}{electric\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Number of electric bike
+station}\label{number-of-electric-bike-station}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} \PY{n}{electric\PYZus{}bike\PYZus{}station} \PY{o}{=} \PY{n}{electric\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{start\PYZus{}station\PYZus{}name}	
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}322}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{electric\PYZus{}bike\PYZus{}station}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}322}]:} 133
+\end{Verbatim}
+            
+    Among the 138 bike stations, 133 stations have electric bikes.
+
+    \subsubsection{Count of daily electric bike rides from April 24th 2018
+to July 31st
+2018}\label{count-of-daily-electric-bike-rides-from-april-24th-2018-to-july-31st-2018}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}323}]:} \PY{n}{electric\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}time\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The trend of daily electric rides}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZhy{}month\PYZhy{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count [electric bike rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image16.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_180_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There was a huge spike around the end of April. I found that around
+April 24th there was an event to celebrate the launch of e-bike.
+\href{https://www.fordgobike.com/blog/ford-gobike-plus-launches-in-san-francisco}{To
+see the news} After that, it seems the usage trend for electric bikes
+are decreasing. On average, daily electric bike rides around July 2018
+is about 500+, which is 10\% of daily bike rides (5000+) on July 2018.
+
+    \subsubsection{Which member age group relatively use electric bikes more
+than other
+group?}\label{which-member-age-group-relatively-use-electric-bikes-more-than-other-group}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}324}]:} \PY{n}{electric\PYZus{}bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}df} \PY{o}{=} \PY{n}{electric\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}325}]:} \PY{n}{filtered\PYZus{}electric\PYZus{}station\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{electric\PYZus{}bike\PYZus{}station}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}326}]:} \PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}df} \PY{o}{=} \PY{n}{filtered\PYZus{}electric\PYZus{}station\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}327}]:} \PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}merged\PYZus{}df} \PY{o}{=} \PY{n}{electric\PYZus{}bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}df}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}328}]:} \PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}merged\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}merged\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{electric\PYZus{}bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/} \PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}merged\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}329}]:} \PY{n}{new\PYZus{}color}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{bike\PYZus{}rides\PYZus{}per\PYZus{}age\PYZus{}merged\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member\PYZus{}age\PYZus{}bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{new\PYZus{}color}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of electric bike rides of all bike rides}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{22}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.015}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{member age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percentage [electric bike rides]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image/image17.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_188_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    10 to 20 age people (teenagers) have shown the lowest interest to this
+service, however, it is interesting that electric bike rides account for
+10\% of all bike rides. It seems that the younger you are, the more
+likely you are fond of electric bike rides.
+
+    \subsection{Top 100 most frequently used
+paths}\label{top-100-most-frequently-used-paths}
+
+    \subsubsection{Filter out top 100 paths}\label{filter-out-top-100-paths}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}330}]:} \PY{n}{trips} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bike\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num\PYZus{}trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Check if there is any end\_station that is not in
+start\_station}\label{check-if-there-is-any-end_station-that-is-not-in-start_station}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}331}]:} \PY{n}{pos\PYZus{}count}\PY{o}{=}\PY{l+m+mi}{0}
+          \PY{n}{neg\PYZus{}count}\PY{o}{=}\PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{trips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:} 
+              \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{trips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{end\PYZus{}station\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                  \PY{n}{pos\PYZus{}count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{neg\PYZus{}count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{pos\PYZus{}count}\PY{p}{,} \PY{n}{neg\PYZus{}count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 100
+
+    \end{Verbatim}
+
+    \subsection{Conclusion}\label{conclusion}
+
+    \begin{quote}
+Generally, around 90\% of rides take place on weekday. Also, more than
+70\% of users are in 20 to 40 years old age(when mean age is 35). Plus,
+76\% of bike rides by male. Moreover, the peak bike rides time for all
+members is around commute time(a quarter of the total rides happen
+exactly at 8am and 5pm). Seeing all these, the user persona of the Ford
+goBike can be inferred as a 35 old man who is working for tech company
+around market street.
+\end{quote}
+
+    \begin{quote}
+88\% of rides are from subscribers and the rest 12\% are from customers.
+Also, Average trip duration for subscribers are 12minutes, which is
+about a third of customers'. Since bike rides has no cost on each ride,
+it's recommendable to encourage subscription. Subscribers' rides take
+place around commute time, on the contrary customers' rides take place
+the most during weekend, which represents the main purpose for the user
+type is different. The former is for convenience around commute time and
+the latter is more likely for leisure.
+\end{quote}
+
+    \begin{quote}
+'Bike share for all' program is a subscription model for low income bay
+area residents. Unlike for all members where there were two peak time
+around both morning commute time and evening commute time, there is only
+one peak time for 'Bike share for all' members around 5pm. In addition,
+unlike most popular docks for all members gathered around financial
+distinct and market street, the popular docks for 'Bike share for all'
+members are sqreaded around bart station or caltrain station, even when
+it is further away from market street, such as 24th street bart station.
+Finally, it seems that 40 to 50 years old age group use the service the
+most.
+\end{quote}
+
+    \begin{quote}
+After Ford goBike did a pilot launch of e-bike on April 24th 2018, there
+have been quite a lot of electric bike rides as well, which reached to
+10\% of daily rides at the end of July 2018. However, daily electric
+bike rides is on downward trend. But, suprisingly, 10 to 20 years user
+group seems to show the most interest in the e-bike, seeing that the
+percentage of e-bike rides of all the rides is around 10\%. Also, the
+younger a rider is, the more likely the rider would be fond of electric
+bike rides.
+\end{quote}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
